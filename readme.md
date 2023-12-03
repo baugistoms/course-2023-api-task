@@ -18,12 +18,17 @@ Install with npm
 To run tests, run the following command
 
 ```bash
-  npm run $testSetName $env
+  npm run $testSetName
 ```
 $testSetName - mandatory param, test set name. List of the supported test sets:
- - user
- - user-negative
-
-$env - environment 
+  - project-all
+  - project-positive
+  - project-negative
+  - color-all
+  - color-positive
+  - color-negative
+  - all-tests
+  - all-positive
+  - all-negative
 
 #### Execution report can be find at /mochawesome-report/mochawesome.html

@@ -5,12 +5,12 @@ import { expect, assert } from 'chai'
 import getNestedValue from 'get-nested-value'
 
 export async function request(context, method, path, body = undefined, auth = true, asserts = {statusCode : 200},  host = undefined, customHeaders = undefined) {
-    const requestST = host ? supertest(host) : supertest(config[global.env].host)
+    const requestST = host ? supertest(host) : supertest(config.host)
 
     const headers = customHeaders ? customHeaders : {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        ...(auth && {'Authorization': `Bearer ${config[global.env].token}`})
+        ...(auth && {'Authorization': `Bearer ${config.token}`})
     }
 
     let response = null
@@ -29,6 +29,20 @@ export async function request(context, method, path, body = undefined, auth = tr
 
             if (asserts.expectedValues) {
                 await validateExpectedValues(responseBody, asserts.expectedValues, context, method, path, headers, response)
+            }
+
+            if (asserts.expectedSpecificValues) {
+                let latestColor;
+                responseBody.forEach(element => {
+                    if (element.id === global.executionVariables['latestColorId'].toString()) {
+                        latestColor = element;
+                    }
+                })
+                if (typeof latestColor === 'undefined') {
+                    throw Error(`Color with ID ${global.executionVariables['latestColorId']} could not be found`);
+                } else {
+                    await validateSpecificExpectedValues(latestColor, asserts.expectedSpecificValues, context, method, path, headers, response);
+                }
             }
 
             if (asserts.executionVariables) {
@@ -135,6 +149,22 @@ async function validateFieldsExists(body, fields, context, method, path, headers
         } catch (error) {
             addRequestInfoToReport(context, method, path, headers, response, requestBody)
             assert.fail(error.actual, error.expected, `${field} field is not present in body`)
+        }
+    })
+}
+
+async function validateSpecificExpectedValues(body, fields, context, method, path, headers, response, requestBody) {
+    fields.forEach(field => {
+        try {
+            if (typeof field.value === 'object') {
+                expect(getNestedValue(field.path, body), `${field.path} not equal to ${field.value}`).to.be.deep.equal(field.value)
+            } else {
+                expect(getNestedValue(field.path, body), `${field.path} not equal to ${field.value}`).to.be.equal(field.value)
+            }
+        } catch (error) {
+            addRequestInfoToReport(context, method, path, headers, response, requestBody)
+            const actual = getNestedValue(field.path, body)
+            assert.fail(actual, field.value, `${field.path} expected value is ${field.value}, but actual was ${actual}`)
         }
     })
 }

@@ -1,18 +1,8 @@
 export const config = {
-    STG: {
-        host: 'https://gorest.co.in/public/v2',
-        token: 'c4b0d9b007bb299ae3f49a83373c0fc87f8ae2e9f1bf6d1fe25b89dd23f48621',
-        username: 'Tenali Ramakrishna',
-        gender: 'male',
-        status: 'active'
-    },
-    PROD: {
-        host: 'https://gorest.co.in/public/v2',
-        token: 'f0e3ab885dc644e66a1ef484744d062e03b44b06f41acd67d19c808bfdfa0f3d',
-        username: 'Tenali Ramakrishna',
-        gender: 'male',
-        status: 'active'
-    }
+    host: 'https://api.zeplin.dev/v1',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoicGVyc29uYWxfYWNjZXNzX3Rva2VuIiwiY2xpZW50X2lkIjoiNjU2NDY1MTNjZmVjNjYyMjAwMGM5YmRmIiwic2NvcGUiOiJhZG1pbiIsImlhdCI6MTcwMTA3ODI5MSwiZXhwIjoyMDE2NjQ3NTUxLCJpc3MiOiJ6ZXBsaW46YXBpLnplcGxpbi5pbyIsInN1YiI6IjY1NjA5MDk3MTMxMzNmMGY3ZTM0MGI0YyIsImp0aSI6ImZjYjY4ZThjLTRlYzQtNDg5My04MGIxLTk0YTgyZDYwODY4ZSJ9.E0NdZ_9u34zFn73VZvtBGdlKDlzJ_fisVNvn9QziJoU',
+    project_id: '6564b94b3317d61f5dda0f72',
+    invalid_id: '6564b94b3317d61f5dda0f74'
 }
 
-global.executionVariables = {}
+global.executionVariables = {};

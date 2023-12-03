@@ -6,7 +6,15 @@
   "author": "Aleksejs Levenciks",
   "license": "ISC",
   "scripts": {
-    "user": "mocha 'tests/scenarios/user/crud.js' --reporter mochawesome --timeout 20000"
+    "project-all": "mocha 'tests/scenarios/project/*/*.js' --reporter mochawesome --timeout 20000",
+    "project-positive": "mocha 'tests/scenarios/project/positive/project.js' --reporter mochawesome --timeout 20000",
+    "project-negative": "mocha 'tests/scenarios/project/negative/project.js' --reporter mochawesome --timeout 20000",
+    "color-all": "mocha 'tests/scenarios/color/*/*.js' --reporter mochawesome --timeout 20000",
+    "color-positive": "mocha 'tests/scenarios/color/positive/color.js' --reporter mochawesome --timeout 20000",
+    "color-negative": "mocha 'tests/scenarios/color/negative/color.js' --reporter mochawesome --timeout 20000",
+    "all-tests": "mocha 'tests/scenarios/*/*/*.js' --reporter mochawesome --timeout 20000",
+    "all-positive": "mocha 'tests/scenarios/*/positive/*.js' --reporter mochawesome --timeout 20000",
+    "all-negative": "mocha 'tests/scenarios/*/negative/*.js' --reporter mochawesome --timeout 20000"
   },
   "devDependencies": {
     "chai": "^4.3.7",
